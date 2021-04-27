@@ -1,0 +1,108 @@
+﻿
+@page
+@model IndexModel
+@{ ViewData["Title"] = "ATZ_Tech_WebAPI_"; }
+
+<p></p>
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1>ATZ-tech</h1>   @*//add project name*@ 
+                </div>
+                <div class="col-6">
+                    <div class="search-box">
+                        <div class="input-group">
+                            <input type="text" id="search" class="form-control-sm" placeholder="Search by Name">
+                            <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <a href="#AddproductsModal" class="btn btn-success" data-toggle="modal">  @*add product model*@
+                        <i class="material-icons">&#xE147;</i> <span>Add New Product</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped">    @*// table*@ 
+            <thead class="thead-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="allproducts"></tbody>     @*allproducts id show data in tables*@
+        </table>
+    </div>
+</div>
+<div id="AddproductsModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="myForm" action=""  method="POST" onsubmit="return validateForm()">   @*// validation for forms*@
+                <div class="modal-header">
+                    <h3 class="modal-title">Add Products</h3>  
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">  @*// add id in input feilds*@ 
+                    <input id="add-name" class="form-control" value="" name="fname" type="text"  placeholder="Add Name" required/>   
+               
+                    <br />
+                    <input class="form-control" type="text" id="add-price" placeholder="Add Price" required />
+                    <br />
+                    <input class="form-control" type="text" id="add-description" placeholder="Add Description" required />
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">  @*cancel button*@
+                    <input type="submit" value="Add"> @*// submit button*@
+                    <div class="form-group" id="result">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+  
+</div>
+<!---Edit Modal html -->
+<div id="editproductsModal" class="modal fade">  @*// edit model*@
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="my-form">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edit Products</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input id="edit-id" type="hidden" >
+                    <input id="edit-name"  class="form-control" type="text" required  />
+                    <br />
+                    <input id="edit-price" class="form-control" type="text"  required />
+                    <br />
+                    <input id="edit-description"  class="form-control" type="text" required />
+                    
+                </div>
+                <div class="form-group" id="resultUpdate"></div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-info" value="Save">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+
+        //run the LoadTable function when the page has loaded
+        $(document).ready(function () {
+            LoadTable();
+        });
+    </script>
+}
